@@ -11,19 +11,45 @@ const displayDogs = () => {
     // Populate the dog names dropdown when the page loads
     dogNamesDropdown();
     dogs.forEach((dog) => {
+      const imgContainer = document.createElement("div")
       const img = document.createElement("img")
       img.src = dog.image
       img.alt = dog.name
-      img.addEventListener("click", () => handleClick(dog))
+
+      // create a caption element
+      const caption = document.createElement("description")
+      caption.textConent = `
+        ${dog.name}, 
+        ${dog.breed},
+        ${dog.age},
+        ${dog.available}
+        `
+
+      img.addEventListener("click", () => handleClick(dog, caption))
+
+      imgContainer.appendChild(img)
+      imgContainer.appendChild(caption);
+
       document.querySelector('#dog-list').append(img)
     })
   })
+  .catch(error => console.error('Error fetching the data:', error))
 }
 displayDogs()
 
-const handleClick = (dogObj) => {
-  console.log(dogObg) 
-}
+const handleClick = (dogObj, captionElement) => {
+  //  const dogDescription = [dog.name, dog.breed, dog.age, dog.available]
+  //  documentGetElementById('#description').appendChild(dogDescription)
+  const dogDescription = document.getElementById('description');
+  dogDescription.innerText = `
+    Name: ${dogObj.name}
+    Breed: ${dogObj.breed}
+    Age: ${dogObj.age}
+    Available: ${dogObj.available ? 'Yes' : 'No'}
+  `
+  dogDescription.innertext(dogDescription)
+  }
+  handleClick()
 
 // Dog names array
 // const dogNames = ['PeterPan', 'TinkerBell', 'Wendy', 'Whiskey',]; ED
@@ -99,4 +125,3 @@ setTimeout(function() {
   message.classList.remove('hidden');
   submit-form.reset();
 }, 1000);
-
